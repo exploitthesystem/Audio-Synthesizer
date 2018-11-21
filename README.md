@@ -11,4 +11,4 @@ The idea: Design a chip for a sound synthesizer. The design will have a CPU core
  
 The motivation: To push the boundaries of PWM sound generation. This is not a mere buzzing, bleeping chip, it is a complex sound synthesizer that can communicate to external processors.
  
-Basic assumptions: 8-bit bus width. Eight PWM outputs. Custom ISA with instructions related to generating audio waveforms. I2C master peripheral to communicate with external devices.
+Basic assumptions: 16-bit bus width. Eight PWM outputs. Custom ISA with instructions related to generating audio waveforms. I2C master peripheral to communicate with external devices.
