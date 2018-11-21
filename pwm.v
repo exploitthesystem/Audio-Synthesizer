@@ -19,7 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module pwm(	input clk, 
-				input rst, 
+				input reset, 
 				input [15:0] pwm_reg,
 				output reg pwm_out
 				);
@@ -28,9 +28,9 @@ module pwm(	input clk,
 	counter U1(.clk(clk), .rst(rst), .count_to(pwm_reg[15:8]), .count(count));
 	assign next_pwm_out = (pwm_reg[7:0] >= count);
 
-	always @(posedge clk or negedge rst)
+	always @(posedge clk or reset)
 	begin
-		if(rst == 0) begin
+		if(reset) begin
 			pwm_out <= 0;
 		end
 		else begin

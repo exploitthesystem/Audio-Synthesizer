@@ -19,7 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module counter(input clk, 
-					input rst, 
+					input reset, 
 					input [7:0] count_to,
 					output reg [7:0] count
 					);
@@ -29,9 +29,9 @@ module counter(input clk,
 	// if count_to is zero, pretend it's max at 0xFF and increment it
 	assign next_count = (count_to == 8'd0) ? count + 1'b1 :(count < count_to) ? count + 1'b1 : 1'b0;
 	
-	always @(posedge clk or negedge rst)
+	always @(posedge clk or reset)
 	begin
-		if(rst == 0) begin
+		if(reset) begin
 			count <= 0;
 		end
 		else count <= next_count;
