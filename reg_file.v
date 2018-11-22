@@ -13,6 +13,7 @@ module reg_file(
   output reg [15:0] B,
   output reg [15:0] C,  
   // I2C
+  input       i2c_wr_en,
   input [1:0] i2c_sts,
   output reg [8:0] i2c_addr
   // PWM
@@ -127,7 +128,8 @@ module reg_file(
   // Write to registers
   always@(posedge clk)
   begin             
-    reg6[9:8] = i2c_sts;
+    if (i2c_wr_en == 1'b1)
+      reg6[9:8] = i2c_sts;
     
     if (write_en)
 	  case (wrData)
