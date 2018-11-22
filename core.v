@@ -6,6 +6,7 @@ module Core(
   output reg [9:0]  core_to_mem_address,       // address of instruction
   output reg        core_to_mem_write_enable,  // memory write enable
   // I2C
+  input             i2c_wr_en,
   input      [1:0]  i2c_sts,
   output     [8:0]  i2c_addr,
   // PWM registers
@@ -77,26 +78,27 @@ module Core(
   
   // Internal register file	
   reg_file _reg_file(
-    .clk      (clk), 
-    .rdDataA  (reg_index1),
-    .rdDataB  (reg_index2),
-    .rdDataC  (reg_index3),
-    .write_en (write_enable),
-    .DataIn   (write_data),
-    .wrData   (write_index),
-    .A	      (reg_data1),
-    .B	      (reg_data2),
-    .C        (reg_data3),
-    .i2c_sts  (i2c_sts),
-    .i2c_addr (i2c_addr),
-    .pwm_reg0 (pwm_reg0),
-    .pwm_reg1 (pwm_reg1),
-    .pwm_reg2 (pwm_reg2),
-    .pwm_reg3 (pwm_reg3),
-    .pwm_reg4 (pwm_reg4),
-    .pwm_reg5 (pwm_reg5),
-    .pwm_reg6 (pwm_reg6),
-    .pwm_reg7 (pwm_reg7));	
+    .clk       (clk), 
+    .rdDataA   (reg_index1),
+    .rdDataB   (reg_index2),
+    .rdDataC   (reg_index3),
+    .write_en  (write_enable),
+    .DataIn    (write_data),
+    .wrData    (write_index),
+    .A	       (reg_data1),
+    .B	       (reg_data2),
+    .C         (reg_data3),
+    .i2c_wr_en (i2c_wr_en),
+    .i2c_sts   (i2c_sts),
+    .i2c_addr  (i2c_addr),
+    .pwm_reg0  (pwm_reg0),
+    .pwm_reg1  (pwm_reg1),
+    .pwm_reg2  (pwm_reg2),
+    .pwm_reg3  (pwm_reg3),
+    .pwm_reg4  (pwm_reg4),
+    .pwm_reg5  (pwm_reg5),
+    .pwm_reg6  (pwm_reg6),
+    .pwm_reg7  (pwm_reg7));	
 	
   // Current state logic
   always@(core_state)
