@@ -8,6 +8,9 @@ module Core(
   // I2C
   input             i2c_wr_en,
   input      [1:0]  i2c_sts,
+  input      [7:0]  i2c_to_core_data,      
+  output      [7:0]  core_to_12c_data,      
+  output      [7:0]  i2c_reg_addr,    
   output     [8:0]  i2c_addr,
   // PWM registers
   output     [15:0] pwm_reg0,
@@ -17,7 +20,8 @@ module Core(
   output     [15:0] pwm_reg4,
   output     [15:0] pwm_reg5,
   output     [15:0] pwm_reg6,
-  output     [15:0] pwm_reg7); 
+  output     [15:0] pwm_reg7)
+  ; 
 
   // Instructions
   parameter LW  = 4'b0000;
@@ -91,6 +95,10 @@ module Core(
     .i2c_wr_en (i2c_wr_en),
     .i2c_sts   (i2c_sts),
     .i2c_addr  (i2c_addr),
+    .i2c_to_reg_file_data       (i2c_to_core_data),      
+    .reg_file_to_12c_data       (core_to_i2c_data),      
+    .i2c_slave_addr             (i2c_reg_addr),   
+
     .pwm_reg0  (pwm_reg0),
     .pwm_reg1  (pwm_reg1),
     .pwm_reg2  (pwm_reg2),

@@ -15,6 +15,9 @@ module reg_file(
   // I2C
   input       i2c_wr_en,
   input [1:0] i2c_sts,
+  input      [7:0]  i2c_to_reg_file_data,      
+  output     [7:0]  reg_file_to_12c_data,      
+  output     [7:0]  i2c_slave_addr,   
   output reg [8:0] i2c_addr
   // PWM
   output reg [15:0] pwm_reg0,

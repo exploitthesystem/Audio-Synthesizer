@@ -58,7 +58,7 @@ Core c1(
   .pwm_reg5						(core_to_r5),
   .pwm_reg6						(core_to_r6),
   .pwm_reg7						(core_to_r7)); 
-								/*			*/
+
   		);
 
 
