@@ -206,7 +206,7 @@ module Core(
 	  end
 	  BRANCH:
         if (cb == flag[flag_idx])
-          next_pc = pc + immediate;     
+          next_pc = pc + {{2{immediate[7]}}, {immediate[7:0]}};      
 	  JUMP:   
 	  begin 
 	    // if conditional jump

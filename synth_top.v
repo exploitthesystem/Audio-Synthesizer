@@ -1,4 +1,4 @@
-synth_top(
+module synth_top(
  inout		  	vdd_pad_io,	
  inout		  	vss_pad_io,	 
  input 		  	reset_io,
@@ -34,9 +34,14 @@ wire [7:0]		i2c_to_core_data_wire;
 wire [7:0]		core_to_i2c_data_wire;
 wire [7:0]		i2c_to_core_reg_addr_wire;
 
-
+/*
 subcomponent subcomponent_instance_name (
-  clk, rst_n, data_rx_1, data_tx ); 
+  clk,
+  rst_n,
+  data_rx_1,
+  data_tx 
+  ); 
+  */
 
 Core c1(
   .clk							(clk_io),
@@ -57,9 +62,9 @@ Core c1(
   .pwm_reg4						(core_to_r4),
   .pwm_reg5						(core_to_r5),
   .pwm_reg6						(core_to_r6),
-  .pwm_reg7						(core_to_r7)); 
+  .pwm_reg7						(core_to_r7));
 
-  		);
+  		
 
 
 pwm p0	  (	
@@ -119,7 +124,7 @@ pwm p7	  (
 		  );
 
 
-module i2c_test(  
+i2c_test(  
 			.clock				(clk_io),
 			.reset				(reset_io),
 			.device_address		(i2c_addr_wire),
