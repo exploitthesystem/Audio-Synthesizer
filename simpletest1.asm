@@ -6,10 +6,10 @@
 1001 0001 1000 1000					shiftr t0 pwm0 0x8 						// get duty cycle of pwm0
 0100 0111 0000 0001					li s0 ADDRESS OF DUTYINIT				// get ADDRESS OF DUTYINIT
 1101 0000 0001 0000					equal xxxx t0 zero						// if dutycycle is zero...
-0011 1001 0000 1000					branch CB=1 FLAG=001 PC+DUTYINIT		// initialize dutycycle
+0011 1001 1111 1000					branch CB=1 FLAG=001 PC+DUTYINIT		// initialize dutycycle
 0100 0010 0000 0001					li t1 0x01								// get a 1
 1011 1000 1000 0010					sub pwm0 pwm0 t1						// decrement dutycycle
-0011 0000 0000 1001					branch CB=0 FLAG=000 PC+DUTYLOOP		// branch to DUTYLOOP
+0011 0000 1111 0111					branch CB=0 FLAG=000 PC+DUTYLOOP		// branch to DUTYLOOP
 0100 0010 0000 0001	WAIT:			li t1 0x01								// get a 1
 1010 1111 1111 0010					add sp sp t1							// increase stack space (sp is pwm7 = 0xf)
 0001 1111 0000 0011					sw sp 0x0 s0							// save s0
@@ -29,3 +29,6 @@ put stack at 32 -> 0x10 -> 0010 0000
 WAIT: 12 -> 1100
 DUTYINIT: 1 -> 0001
 WAITLOOP: 17 -> 0001 0001
+
+0000 1000 -> flip bits: 1111 0111 -> add 1: 1111 1000
+0000 1001 -> flip bits: 1111 0110 -> add 1: 1111 0111
