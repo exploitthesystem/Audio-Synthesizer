@@ -124,7 +124,7 @@ pwm p7	  (
 		  );
 
 
-i2c_test(  
+I2C(  
 			.clock				(clk_io),
 			.reset				(reset_io),
 			.device_address		(i2c_addr_wire),
