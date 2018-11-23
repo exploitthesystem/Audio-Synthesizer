@@ -40,7 +40,7 @@ module I2C_state_controller(
 
 	reg [3:0] state_list = 4'd0;
 	
-	always@ (reset, state_list, dev_address_s[8])
+	always@ (reset, state_list, dev_address_s[8], data_s, reg_address_s)
 	begin
 		if (reset)
 			begin
@@ -78,7 +78,7 @@ module I2C_state_controller(
 	always@ (posedge clock)
 		begin
 			if (ack_failed)
-				state_list <= 4'd8;
+				state_list <= 4'd7;
 			if (req_next)
 				if (state_list == 4'd2 && dev_address_s[0])				// if this is a read, skip writing byte
 					state_list <= 4'd4;
