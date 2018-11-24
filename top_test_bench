@@ -1,0 +1,20 @@
+module synth_top(
+	vdd_pad_io,	
+	vss_pad_io,	 
+	reset_io,
+	clk_io,	 
+	data_in_io,
+	data_out_io, 
+	addr_out_io,
+	core_to_mem_enable_io,
+	sda_io,
+	scl_io,
+	pwm0_io,
+	pwm1_io,
+	pwm2_io,
+	pwm3_io,
+	pwm4_io,
+	pwm5_io,
+	pwm6_io,
+	pwm7_io
+);
