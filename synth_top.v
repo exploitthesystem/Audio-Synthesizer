@@ -20,7 +20,7 @@ module synth_top(
 );
 
 wire [1:0]		i2c_sts_wire;
-wire [7:0]		i2c_addr_wire;
+wire [8:0]		i2c_addr_wire;
 wire [15:0]		core_to_r0;
 wire [15:0]		core_to_r1;
 wire [15:0]		core_to_r2;
@@ -52,7 +52,7 @@ Core c1(
   .core_to_mem_write_enable		(core_to_mem_enable_io), 		 // memory write enable
   .i2c_sts						(i2c_sts_wire),
   .i2c_to_core_data				(i2c_to_core_data_wire),    
-  .core_to_12c_data				(core_to_i2c_data_wire),      
+  .core_to_i2c_data				(core_to_i2c_data_wire),      
   .i2c_reg_addr					(i2c_to_core_reg_addr_wire),    
   .i2c_addr						(i2c_addr_wire),
   .pwm_reg0						(core_to_r0),

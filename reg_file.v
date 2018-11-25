@@ -16,7 +16,7 @@ module reg_file(
   input       i2c_wr_en,
   input [1:0] i2c_sts,
   input      [7:0]  i2c_to_reg_file_data,      
-  output     [7:0]  reg_file_to_12c_data,      
+  output     [7:0]  reg_file_to_i2c_data,      
   output     [7:0]  i2c_slave_addr,   
   output reg [8:0] i2c_addr,
   // PWM
@@ -37,27 +37,7 @@ module reg_file(
   
   // Read from registers
   always@(rdDataA or rdDataB or rdDataC or rst)
-  begin          
-    if (rst == 1'b1)
-    begin
-      reg1 = 0;
-      reg2 = 0;
-      reg3 = 0;
-      reg4 = 0;
-      reg5 = 0;
-      reg6 = 0;
-      reg7 = 0;
-      reg8 = 0;
-      reg9 = 0;
-      reg10 = 0;
-      reg11 = 0;
-      reg12 = 0;
-      reg13 = 0;
-      reg14 = 0;
-      reg15 = 0;
-    end
-    else
-    begin
+  begin     
       i2c_addr = reg6[8:0];
         
       pwm_reg0 = reg8;  
@@ -124,35 +104,55 @@ module reg_file(
   13 : C = reg13;
   14 : C = reg14;
   15 : C = reg15;
-     endcase  
-    end
+     endcase 
   end
   
   // Write to registers
   always@(posedge clk)
-  begin             
-    if (i2c_wr_en == 1'b1)
-      reg6[9:8] = i2c_sts;
-    
-    if (write_en)
-    case (wrData)
-      0  : begin end
-    1  : reg1 <= DataIn;
-    2  : reg2 <= DataIn;
-    3  : reg3 <= DataIn;
-    4  : reg4 <= DataIn;
-    5  : reg5 <= DataIn;
-    6  : reg6 <= DataIn;
-    7  : reg7 <= DataIn;
-    8  : reg8 <= DataIn;
-    9  : reg9 <= DataIn;
-    10 : reg10 <= DataIn;
-    11 : reg11 <= DataIn;
-    12 : reg12 <= DataIn;
-    13 : reg13 <= DataIn;
-    14 : reg14 <= DataIn;
-    15 : reg15 <= DataIn;
-    endcase
+  begin 
+    if (rst == 1'b1)
+		 begin
+			reg1 <= 0;
+			reg2 <= 0;
+			reg3 <= 0;
+			reg4 <= 0;
+			reg5 <= 0;
+			reg6 <= 0;
+			reg7 <= 0;
+			reg8 <= 0;
+			reg9 <= 0;
+			reg10 <= 0;
+			reg11 <= 0;
+			reg12 <= 0;
+			reg13 <= 0;
+			reg14 <= 0;
+			reg15 <= 0;
+		 end
+    else 
+		begin
+			 if (i2c_wr_en == 1'b1)
+				reg6[9:8] = i2c_sts;
+			 
+			 if (write_en)
+			 case (wrData)
+				 0  : begin end
+				 1  : reg1 <= DataIn;
+				 2  : reg2 <= DataIn;
+				 3  : reg3 <= DataIn;
+				 4  : reg4 <= DataIn;
+				 5  : reg5 <= DataIn;
+				 6  : reg6 <= DataIn;
+				 7  : reg7 <= DataIn;
+				 8  : reg8 <= DataIn;
+				 9  : reg9 <= DataIn;
+				 10 : reg10 <= DataIn;
+				 11 : reg11 <= DataIn;
+				 12 : reg12 <= DataIn;
+				 13 : reg13 <= DataIn;
+				 14 : reg14 <= DataIn;
+				 15 : reg15 <= DataIn;
+			 endcase	
+	end
   end
 
 endmodule

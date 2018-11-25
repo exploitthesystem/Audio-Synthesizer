@@ -24,14 +24,14 @@ module top_test_bench;
 
 wire 		vdd_pad_io_tst;	
 wire 		vss_pad_io_tst;	 
-wire 		reset_io_tst;
+reg 		reset_io_tst;
 reg 		clk_io_tst;	 
 reg[15:0] 	data_in_io_tst;
-reg[15:0] 	data_out_io_tst; 
+wire[15:0] 	data_out_io_tst; 
 reg [9:0] 	addr_out_io_tst;
 reg 		core_to_mem_enable_io_tst;
-reg 		sda_io_tst;
-reg 		scl_io_tst;
+wire 		sda_io_tst;
+wire 		scl_io_tst;
 wire 		pwm0_io_tst;
 wire 		pwm1_io_tst;
 wire 		pwm2_io_tst;
@@ -69,7 +69,7 @@ synth_top top1(
 
 initial begin
 // $readmemh("memory.list", my_memory);
-
+/*
 mem[0]	= 16'b0100_1111_0010_0000;	
 mem[1]	= 16'b0100_1000_1111_1111;	
 mem[2]	= 16'b0101_1000_0000_0000;	
@@ -95,11 +95,13 @@ mem[21] = 16'b0000_1111_0000_0010;
 mem[22] = 16'b1011_1111_1111_0010;	
 mem[23] = 16'b0010_0000_0000_0101;
 
-assign data_in_io_tst = mem[addr_out_io_tst];
+#10 reset_io_tst = 1;
+#10 reset_io_tst = 0;
 
+assign data_in_io_tst = mem[addr_out_io_tst];
+*/
 end
 
-always 
-   #50  clk_io_tst =  ! clk_io_tst;
+always begin #50 assign clk_io_tst = ~clk_io_tst; end   
 
 endmodule

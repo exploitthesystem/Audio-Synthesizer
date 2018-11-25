@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/gordb/Documents/git/Audio-Synthesizer/trash_this_test_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="trash_this_test" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="38" />
+   <wvobject fp_name="/trash_this_test/mem_to_core_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_to_core_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_to_core_data[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/core_to_mem_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">core_to_mem_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">core_to_mem_data[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/core_to_mem_address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">core_to_mem_address[9:0]</obj_property>
+      <obj_property name="ObjectShortName">core_to_mem_address[9:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/core_to_mem_write_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">core_to_mem_write_enable</obj_property>
+      <obj_property name="ObjectShortName">core_to_mem_write_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/core_to_i2c_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">core_to_i2c_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">core_to_i2c_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/i2c_reg_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i2c_reg_addr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i2c_reg_addr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/i2c_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i2c_addr[8:0]</obj_property>
+      <obj_property name="ObjectShortName">i2c_addr[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/pwm_reg0" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pwm_reg0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pwm_reg0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/pwm_reg7" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pwm_reg7[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pwm_reg7[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/i2c_wr_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i2c_wr_en</obj_property>
+      <obj_property name="ObjectShortName">i2c_wr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/i2c_sts" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i2c_sts[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i2c_sts[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/i2c_to_core_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i2c_to_core_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i2c_to_core_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem[0:1023,15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[0:1023,15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/core_state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">core_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">core_state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/next_state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">next_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/write_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">write_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">write_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/write_index" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">write_index[3:0]</obj_property>
+      <obj_property name="ObjectShortName">write_index[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/write_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">write_enable</obj_property>
+      <obj_property name="ObjectShortName">write_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/reg1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg1[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/reg2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg2[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/reg3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg3[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg3[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/reg8" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg8[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg8[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/reg15" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg15[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg15[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_index1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_index1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_index1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_index2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_index2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_index2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_index3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_index3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_index3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_data1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_data1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_data1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_data2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_data2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_data2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_data3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_data3[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_data3[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/A" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">A[15:0]</obj_property>
+      <obj_property name="ObjectShortName">A[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/B" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">B[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/_reg_file/C" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">C[15:0]</obj_property>
+      <obj_property name="ObjectShortName">C[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_read1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_read1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_read1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_read2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_read2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_read2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/trash_this_test/uut/reg_read3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_read3[15:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_read3[15:0]</obj_property>
+   </wvobject>
+</wave_config>
