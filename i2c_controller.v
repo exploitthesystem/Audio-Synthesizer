@@ -18,27 +18,27 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module I2C( 
-	input 				clock,
-	input 				reset,
+module I2C(  
+	input 					clock,
+	input 					reset,
 	input			[8:0]	device_address,
 	input			[7:0]	reg_address,
 	input			[7:0]	data_in,
 	
-	inout 				serial_data_line,
-	inout 				serial_clock_line,
+	inout 					serial_data_line,
+	inout 					serial_clock_line,
 	
 	output reg	[7:0]		data_out,
 	output reg  [1:0] 		i2c_status,
-	output reg			WE);
+	output reg				WE);
 
 	parameter get_state		= 3'd0;
-	parameter start_bit 		= 3'd1;
+	parameter start_bit 	= 3'd1;
 	parameter send_one	 	= 3'd2;
-	parameter repeat_start		= 3'd3;
+	parameter repeat_start	= 3'd3;
 	parameter stop_bit 		= 3'd4;	
 	parameter send_byte		= 3'd5;
-	parameter receive_byte		= 3'd6;
+	parameter receive_byte	= 3'd6;
 	
 
 	wire SDA_read;
@@ -66,16 +66,15 @@ module I2C(
 	reg ack_failed;
 	
 
-	I2C_state_controller i2c_state ( 	
-					.clock				(clock),
-					.reset				(reset),
-					.req_next			(request_next_state),
-					.ack_failed			(ack_failed),
-					.dev_address_s   	(device_address),
-					.reg_address_s		(reg_address),
-					.data_s				(data_in),
-					.send_next_state	(next_state_s),
-					.send_byte_data		(send_byte_data));
+	I2C_state_controller i2c_state ( 	.clock				(clock),
+										.reset				(reset),
+										.req_next			(request_next_state),
+										.ack_failed			(ack_failed),
+										.dev_address_s   	(device_address),
+										.reg_address_s		(reg_address),
+										.data_s				(data_in),
+										.send_next_state	(next_state_s),
+										.send_byte_data		(send_byte_data));
 												
 	always@ (reset, state, ended, get_state, device_address[8], next_state_s)
 	begin
@@ -89,10 +88,10 @@ module I2C(
 				get_state	: 	begin	next_state = device_address[8] ? next_state_s : get_state;		request_next_state = 0;		end
 				start_bit	: 	begin	next_state = ended ? get_state : start_bit;						request_next_state = ended;	end
 				send_one	:	begin	next_state = ended ? get_state : send_one;						request_next_state = ended;	end
-				repeat_start: 	begin	next_state = ended ? get_state : repeat_start;					request_next_state = ended;	end
+				repeat_start	: 	begin	next_state = ended ? get_state : repeat_start;					request_next_state = ended;	end
 				stop_bit	:	begin	next_state = ended ? get_state : stop_bit;						request_next_state = ended;	end
 				send_byte	: 	begin	next_state = ended ? get_state : send_byte;						request_next_state = ended;	end
-				receive_byte:	begin	next_state = ended ? get_state : receive_byte;					request_next_state = ended;	end
+				receive_byte	:	begin	next_state = ended ? get_state : receive_byte;					request_next_state = ended;	end
 				default		:	begin	next_state = get_state;											request_next_state = 0;		end
 			endcase
 	end
@@ -104,6 +103,10 @@ module I2C(
 
 	
 	always@ (posedge clock)
+	begin
+
+		state <= next_state;
+
 		case (state)
 			get_state:
 				begin
@@ -286,5 +289,6 @@ module I2C(
 					counter <= 10'd0;
 				end
 		endcase
+	end
 	
 endmodule

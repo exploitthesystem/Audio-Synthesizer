@@ -40,7 +40,7 @@ module I2C_state_controller(
 
 	reg [3:0] state_list = 4'd0;
 	
-	always@ (reset, state_list, dev_address_s[8], data_s, reg_address_s)
+	always@ (reset, state_list, dev_address_s[8], reg_address_s, data_s)
 	begin
 		if (reset)
 			begin
@@ -50,10 +50,10 @@ module I2C_state_controller(
 			
 		else
 			case (state_list)
-				0 	: if (dev_address_s[8])  																		// stay in get state until start signal is sent
-							begin send_next_state = start;		send_byte_data = 0; 							end
-						else
-							begin send_next_state = get_state;	send_byte_data = 0;								end
+				0 	: if (dev_address_s[8])  												// stay in get state until start signal is sent
+						begin send_next_state = start;		send_byte_data = 0; 							end
+					else
+						begin send_next_state = get_state;	send_byte_data = 0;							end
 			
 				1 	: begin send_next_state = send_byte; 		send_byte_data = {dev_address_s[7:1], 1'b0}; 	end // send device_address + write bit 0
 				
@@ -77,17 +77,22 @@ module I2C_state_controller(
 		
 	always@ (posedge clock)
 		begin
-			if (ack_failed)
-				state_list <= 4'd7;
-			if (req_next)
-				if (state_list == 4'd2 && dev_address_s[0])				// if this is a read, skip writing byte
-					state_list <= 4'd4;
-				else if (state_list == 4'd3 && !dev_address_s[0])		// if this is a write, skip repeat start and read
-					state_list <= 4'd8;
-				else if (state_list == 4'd8)
-					state_list <= 4'd0;
-				else
-					state_list <= state_list + 1'b1;
+			if (reset)
+				state_list <= 4'd0;
+			else
+			begin
+				if (ack_failed)
+					state_list <= 4'd7;	
+				if (req_next)
+					if (state_list == 4'd2 && dev_address_s[0])				// if this is a read, skip writing byte
+						state_list <= 4'd4;
+					else if (state_list == 4'd3 && !dev_address_s[0])		// if this is a write, skip repeat start and read
+						state_list <= 4'd8;
+					else if (state_list == 4'd8)
+						state_list <= 4'd0;
+					else
+						state_list <= state_list + 1'b1;
+			end
 		end
 	
 	
