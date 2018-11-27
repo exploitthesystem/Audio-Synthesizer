@@ -75,7 +75,7 @@ module synth_top_testbench;
 		data_in_io = 0;
 
 		// make memory
-		/* program to test PWM
+		//* program to test PWM
 		mem[0]	= 16'b0100_1111_0010_0000;	
 		mem[1]	= 16'b0100_1000_1111_1111;	
 		mem[2]	= 16'b0101_1000_0000_0000;	
