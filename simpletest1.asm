@@ -3,7 +3,7 @@
 0101 1000 0000 0000					oui pwm0 0x00							// set up pwm0 output, upper bits
 0100 0100 0000 1100	DUTYLOOP:		li s1 ADDRESS OF WAIT					// get ADDRESS OF WAIT
 0010 0000 0100 0100 				jump cond=0 cb=0 flag=000 JAL=1 xx s1 	// jump to WAIT in s1
-1001 0001 1000 1000					shiftr t0 pwm0 0x8 						// get duty cycle of pwm0
+1001 0001 1000 0000					shiftr t0 pwm0 0x0 						// get duty cycle of pwm0 !!! doesn't do anything, the upper 8 bits should be 0
 0100 0111 0000 0001					li s0 ADDRESS OF DUTYINIT				// get ADDRESS OF DUTYINIT
 1101 0000 0001 0000					equal xxxx t0 zero						// if dutycycle is zero...
 0011 1000 1111 1000					branch CB=1 FLAG=000 PC+DUTYINIT		// initialize dutycycle
