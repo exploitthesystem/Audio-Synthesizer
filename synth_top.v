@@ -1,6 +1,4 @@
 module synth_top(
- inout		  	vdd_pad_io,	
- inout		  	vss_pad_io,	 
  input 		  	reset_io,
  input		  	clk_io,	 
  input [15:0] 	data_in_io,
