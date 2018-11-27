@@ -57,10 +57,10 @@ module Core(
 	                                      
   // Registers for branches and jumps        
   reg       cond;
-  reg       cb;  
+  reg       cb			  = 0;  
   reg       jal;
-  reg [2:0] flag_idx;
-  reg [2:0] flag = 0;    
+  reg 		flag_idx;
+  reg [1:0] flag = 0;    
   	                                                            
   // Registers for core states that persists between cycles w/in instruction
   reg [3:0]  opcode;
@@ -113,7 +113,7 @@ module Core(
     .pwm_reg7  (pwm_reg7));	
 	
   // Current state logic
-  always@(core_state)
+  always@(*)
   begin
 
     //Assign values to be 0, ensuring everything has a default value
@@ -123,6 +123,7 @@ module Core(
     write_data   = 0;
     write_enable = 0;
     write_index  = 0;
+	 next_pc = 0;
 	
     core_to_mem_address      = 0;
     core_to_mem_data         = 0;
@@ -131,41 +132,24 @@ module Core(
 		 case (core_state)
 		  FETCH:  
 				begin
-					core_to_mem_address = pc;     
-					next_pc = pc + 1'b1;
+					core_to_mem_address = pc;    
 				end
 		  DECODE:
-				begin                
-					cb         = mem_to_core_data[11];  // For branch instruction
-					flag_idx   = mem_to_core_data[10:8];     
-					opcode     = mem_to_core_data[15:12];    
-					dest_index = mem_to_core_data[11:8];
-					immediate  = mem_to_core_data[7:0];    
-					shift      = mem_to_core_data[3:0];
-			 
-		
-			
-			  
-					if (opcode == LW || opcode == SW || opcode == OUI)
+				begin        
+					if (mem_to_core_data[15:12] == LW || mem_to_core_data[15:12] == SW || mem_to_core_data[15:12] == OUI)
 						begin
 							reg_index1 = mem_to_core_data[11:8]; // read reg 1
 							reg_index2 = mem_to_core_data[7:4];  // read reg 2     
-							reg_index3 = mem_to_core_data[3:0];  // read reg 3       
-							dest_index = mem_to_core_data[3:0];  
+							reg_index3 = mem_to_core_data[3:0];  // read reg 3 
+						end
+					else if (mem_to_core_data[15:12] == JMP)             
+						begin  
+							reg_index1 = mem_to_core_data[3:0];
 						end
 					else
 						begin
 							reg_index1 = mem_to_core_data[7:4]; // read reg 1
 							reg_index2 = mem_to_core_data[3:0]; // read reg 2
-						end
-									 
-					if (opcode == JMP)             
-						begin
-							cond       = mem_to_core_data[11];
-							cb         = mem_to_core_data[10];
-							flag_idx   = mem_to_core_data[9:7];     
-							jal        = mem_to_core_data[6];
-							reg_index1 = mem_to_core_data[3:0];
 						end
 				end
 		  EXECUTE: 
@@ -186,7 +170,10 @@ module Core(
 					else if (opcode == SLR)
 						write_data = reg_data1 >> shift;
 					else if (opcode == ADD)
-						write_data = reg_data1 + reg_data2;
+						if (reg_data1 + reg_data2 > 16'hffff)
+							write_data = 16'hffff;
+						else
+							write_data = reg_data1 + reg_data2;
 					else if (opcode == SUB)      
 						begin
 							if (reg_data2 > reg_data1)
@@ -195,15 +182,9 @@ module Core(
 								write_data = reg_data1 - reg_data2;  
 						end
 					else if (opcode == LT)
-						begin
-							write_enable = 0;
-							flag[1] = reg_data1 < reg_data2;
-						end
+						write_enable = 0;
 					else if (opcode == EQ)
-						begin
-							write_enable = 0;
-							flag[0] = reg_data1 == reg_data2;
-						end
+						write_enable = 0;
 					else if (opcode == NOT)
 						write_data = ~reg_data1;
 				end
@@ -221,18 +202,14 @@ module Core(
 					core_to_mem_write_enable = 1;
 				end
 		  BRANCH:
-			  if (cb == flag[flag_idx])
-				 next_pc = pc + {{2{immediate[7]}}, {immediate[7:0]}};      
+					next_pc = (cb == flag[flag_idx]) ? pc + {{2{immediate[7]}}, {immediate[7:0]}} : next_pc;
 		  JUMP:   
 				begin 
 					// if conditional jump
 					if (cond == 1'b1)
-						begin
-							if (cb == flag[flag_idx])
-								next_pc = reg_data1;
-						end
+						next_pc = (cb == flag[flag_idx]) ? reg_data1[9:0] : next_pc;
 					else
-						next_pc = reg_data1; // regular jump            
+						next_pc = reg_data1[9:0]; // regular jump            
 			 
 					// if jump and link  
 					if (jal == 1'b1)
@@ -242,12 +219,14 @@ module Core(
 							write_data   = pc + 1'b1; // Return = PC + 1
 						end
 				end  
-		  default: begin end // Does nothing
+		  default: begin
+					//		next_pc 	= 0;
+						end 
 		 endcase
   end
 	
   // Next state logic
-  always@(core_state)
+  always@(*)
   begin	
 	/*if(rst == 1'b1) begin
 	//	next_state = EXECUTE;
@@ -293,23 +272,42 @@ module Core(
   always@(posedge clk)
   begin 
     if (rst == 1'b1)
-    begin
-      core_state <= FETCH;
-      pc         <= 0;
-    end
+		begin
+			core_state <= FETCH;
+			pc         <= 0;
+		end
     else 
-    begin 
+		begin 
 	 
-		if (core_state == DECODE)
-			begin	
-				reg_data1 <= reg_read1;
-				reg_data2 <= reg_read2;
-				reg_data3 <= reg_read3;
-			end 
+			if (core_state == DECODE)
+				begin	
+					jal        	<= mem_to_core_data[6];
+					cond       	<= mem_to_core_data[11];  
+					shift      	<= mem_to_core_data[3:0];	
+					immediate  	<= mem_to_core_data[7:0];  				
+					opcode 		<= mem_to_core_data[15:12];  
+					dest_index 	<= (opcode == LW) ? mem_to_core_data[3:0] : mem_to_core_data[11:8];  				
+					flag_idx 	<= (opcode == JMP) ? mem_to_core_data[7] : mem_to_core_data[8];
+					cb 			<= (opcode == JMP) ? mem_to_core_data[10] : mem_to_core_data[11];			
+					reg_data1 	<= reg_read1;
+					reg_data2 	<= reg_read2;
+					reg_data3 	<= reg_read3;
+				end 
+
+			if (core_state == EXECUTE)
+				begin
+					if (opcode == LT)
+						flag[1] <= reg_data1 < reg_data2;
+					if (opcode == EQ)
+						flag[0] <= reg_data1 == reg_data2;
+				end
 
 
-      core_state <= next_state;    
-      pc         <= next_pc;
-  end                       
-end 
+			if (core_state == JUMP || core_state == BRANCH)
+				pc <= next_pc;
+			else if (core_state == FETCH)
+				pc <= pc + 1'b1;
+			core_state <= next_state;  
+		end                       
+	end 
 endmodule
