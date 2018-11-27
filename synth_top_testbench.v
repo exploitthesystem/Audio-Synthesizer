@@ -30,8 +30,8 @@ module synth_top_testbench;
 	reg [15:0] data_in_io;
 
 	// Outputs
-	reg core_to_mem_enable_io;
-	reg [9:0] addr_out_io;
+	wire core_to_mem_enable_io;
+	wire [9:0] addr_out_io;
 	wire [15:0] data_out_io;
 	wire pwm0_io;
 	wire pwm1_io;
@@ -73,10 +73,9 @@ module synth_top_testbench;
 		reset_io = 0;
 		clk_io = 0;
 		data_in_io = 0;
-		addr_out_io = 0;
-		core_to_mem_enable_io = 0;
-		
+
 		// make memory
+		/* program to test PWM
 		mem[0]	= 16'b0100_1111_0010_0000;	
 		mem[1]	= 16'b0100_1000_1111_1111;	
 		mem[2]	= 16'b0101_1000_0000_0000;	
@@ -101,6 +100,14 @@ module synth_top_testbench;
 		mem[21] = 16'b0000_1111_0000_0011;	
 		mem[22] = 16'b1011_1111_1111_0010;	
 		mem[23] = 16'b0010_0000_0000_0101;
+		/*end of test PWM */
+
+		/* program to test I2C
+		mem[0]	= 16'b0100_0110_0101_1000;	
+		mem[1]	= 16'b0100_0111_0010_0001;	
+		mem[2]	= 16'b0101_0111_1111_0001;	
+		mem[3]	= 16'b0101_0110_0000_0001;
+		/*end of test I2C */
 
 		// Wait 100 ns for global reset to finish
 		#100;
@@ -111,19 +118,12 @@ module synth_top_testbench;
 		#502 reset_io = 0;
 
 	end
-	
-	/* this worked from the previous testbench
-	assign mem_to_core_data = mem[core_to_mem_address];
-	always @(posedge clk)
-	begin
-		if(core_to_mem_write_enable) begin
-			mem[core_to_mem_address] = core_to_mem_data;
-		end
-	end
-	*/
-	
+
 	// read from memory
-	assign data_in_io = mem[addr_out_io];
+	always @(*)
+	begin
+		data_in_io = mem[addr_out_io];
+	end
 	
 	//write to memory
 	always @(posedge clk_io)
@@ -132,7 +132,7 @@ module synth_top_testbench;
 			mem[addr_out_io] = data_out_io;
 		end
 	end
-	//*/
+
 	// run 10 MHz clock
 	always begin #50 assign clk_io = ~clk_io; end 
 endmodule
