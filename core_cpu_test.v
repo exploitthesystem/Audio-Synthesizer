@@ -126,6 +126,7 @@ module core_cpu_test;
 			mem[core_to_mem_address] = core_to_mem_data;
 		end
 	end
+	
 	always begin #50 assign clk = ~clk; end   
       
 endmodule
