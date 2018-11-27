@@ -14,11 +14,11 @@ module reg_file(
   output reg [15:0] C,  
   // I2C
   input       i2c_wr_en,
-  input [1:0] i2c_sts,
-  input      [7:0]  i2c_to_reg_file_data,      
-  output reg [7:0]  reg_file_to_i2c_data,      
-  output reg [7:0]  i2c_slave_addr,   
-  output reg [8:0]  i2c_addr,
+  input 		 [1:0] i2c_sts,
+  input      [7:0] i2c_to_reg_file_data,      
+  output reg [7:0] reg_file_to_i2c_data,      
+  output reg [7:0] i2c_slave_addr,   
+  output reg [8:0] i2c_addr,
   // PWM
   output reg [15:0] pwm_reg0,
   output reg [15:0] pwm_reg1,
@@ -37,82 +37,82 @@ module reg_file(
   
   // Read from registers
   always@(*)
-  begin          
-		i2c_addr 				= reg6[8:0];
-		reg_file_to_i2c_data = reg7[15:8];
+  begin     
+      i2c_addr 				= reg6[8:0];
 		i2c_slave_addr 		= reg7[7:0];
-			
-		pwm_reg0 = reg8;  
-		pwm_reg1 = reg9;
-		pwm_reg2 = reg10;
-		pwm_reg3 = reg11;
-		pwm_reg4 = reg12;
-		pwm_reg5 = reg13;
-		pwm_reg6 = reg14;
-		pwm_reg7 = reg15;
-			  
-		case (rdDataA)
-			0  : A = 0;
-			1  : A = reg1;
-			2  : A = reg2;
-			3  : A = reg3;
-			4  : A = reg4;
-			5  : A = reg5;
-			6  : A = reg6;
-			7  : A = reg7;
-			8  : A = reg8;
-			9  : A = reg9;
-			10 : A = reg10;
-			11 : A = reg11;
-			12 : A = reg12;
-			13 : A = reg13;
-			14 : A = reg14;
-			15 : A = reg15;
-		endcase
-		 
-		case (rdDataB)
-			0  : B = 0;
-			1  : B = reg1;
-			2  : B = reg2;
-			3  : B = reg3;
-			4  : B = reg4;
-			5  : B = reg5;
-			6  : B = reg6;
-			7  : B = reg7;
-			8  : B = reg8;
-			9  : B = reg9;
-			10 : B = reg10;
-			11 : B = reg11;
-			12 : B = reg12;
-			13 : B = reg13;
-			14 : B = reg14;
-			15 : B = reg15;
-		endcase           
-		 
-		case (rdDataC)
-			0  : C = 0;
-			1  : C = reg1;
-			2  : C = reg2;
-			3  : C = reg3;
-			4  : C = reg4;
-			5  : C = reg5;
-			6  : C = reg6;
-			7  : C = reg7;
-			8  : C = reg8;
-			9  : C = reg9;
-			10 : C = reg10;
-			11 : C = reg11;
-			12 : C = reg12;
-			13 : C = reg13;
-			14 : C = reg14;
-			15 : C = reg15;
-	  endcase 
+		reg_file_to_i2c_data = reg7[15:8];
+        
+      pwm_reg0 = reg8;  
+      pwm_reg1 = reg9;
+      pwm_reg2 = reg10;
+      pwm_reg3 = reg11;
+      pwm_reg4 = reg12;
+      pwm_reg5 = reg13;
+      pwm_reg6 = reg14;
+      pwm_reg7 = reg15;
+        
+      case (rdDataA)
+        0  : A = 0;
+  1  : A = reg1;
+        2  : A = reg2;
+  3  : A = reg3;
+  4  : A = reg4;
+  5  : A = reg5;
+  6  : A = reg6;
+  7  : A = reg7;
+  8  : A = reg8;
+  9  : A = reg9;
+  10 : A = reg10;
+  11 : A = reg11;
+  12 : A = reg12;
+  13 : A = reg13;
+  14 : A = reg14;
+  15 : A = reg15;
+      endcase
+    
+      case (rdDataB)
+  0  : B = 0;
+  1  : B = reg1;
+  2  : B = reg2;
+  3  : B = reg3;
+  4  : B = reg4;
+  5  : B = reg5;
+  6  : B = reg6;
+  7  : B = reg7;
+  8  : B = reg8;
+  9  : B = reg9;
+  10 : B = reg10;
+  11 : B = reg11;
+  12 : B = reg12;
+  13 : B = reg13;
+  14 : B = reg14;
+  15 : B = reg15;
+      endcase           
+    
+      case (rdDataC)
+  0  : C = 0;
+  1  : C = reg1;
+  2  : C = reg2;
+  3  : C = reg3;
+  4  : C = reg4;
+  5  : C = reg5;
+  6  : C = reg6;
+  7  : C = reg7;
+  8  : C = reg8;
+  9  : C = reg9;
+  10 : C = reg10;
+  11 : C = reg11;
+  12 : C = reg12;
+  13 : C = reg13;
+  14 : C = reg14;
+  15 : C = reg15;
+     endcase 
   end
   
   // Write to registers
-  always@(posedge clk, posedge rst)
-  begin   
-	if (rst == 1'b1)
+  always@(posedge clk)
+  begin 
+    if (rst == 1'b1)
 		 begin
 			reg1 <= 0;
 			reg2 <= 0;
@@ -129,36 +129,34 @@ module reg_file(
 			reg13 <= 0;
 			reg14 <= 0;
 			reg15 <= 0;
-
-		 end  
-	else
-	begin
-    if (i2c_wr_en == 1'b1)
+		 end
+    else 
 		begin
-			reg6[9:8]  <= i2c_sts;
-			reg7[15:8] <= i2c_to_reg_file_data;
-		end
-    
-    if (write_en)
-		case (wrData)
-			0  : begin end
-			1  : reg1 <= DataIn;
-			2  : reg2 <= DataIn;
-			3  : reg3 <= DataIn;
-			4  : reg4 <= DataIn;
-			5  : reg5 <= DataIn;
-			6  : reg6 <= DataIn;
-			7  : reg7 <= DataIn;
-			8  : reg8 <= DataIn;
-			9  : reg9 <= DataIn;
-			10 : reg10 <= DataIn;
-			11 : reg11 <= DataIn;
-			12 : reg12 <= DataIn;
-			13 : reg13 <= DataIn;
-			14 : reg14 <= DataIn;
-			15 : reg15 <= DataIn;
-		endcase
-
+			 if (i2c_wr_en == 1'b1)
+				begin
+					reg6[9:8] 	<= i2c_sts;
+					reg7[15:8] 	<= i2c_to_reg_file_data;
+				end
+			 
+			 if (write_en)
+			 case (wrData)
+				 0  : begin end
+				 1  : reg1 <= DataIn;
+				 2  : reg2 <= DataIn;
+				 3  : reg3 <= DataIn;
+				 4  : reg4 <= DataIn;
+				 5  : reg5 <= DataIn;
+				 6  : reg6 <= DataIn;
+				 7  : reg7 <= DataIn;
+				 8  : reg8 <= DataIn;
+				 9  : reg9 <= DataIn;
+				 10 : reg10 <= DataIn;
+				 11 : reg11 <= DataIn;
+				 12 : reg12 <= DataIn;
+				 13 : reg13 <= DataIn;
+				 14 : reg14 <= DataIn;
+				 15 : reg15 <= DataIn;
+			 endcase	
 	end
   end
 
