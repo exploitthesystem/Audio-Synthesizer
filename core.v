@@ -136,7 +136,7 @@ module Core(
 		  DECODE:
 				begin   
 					core_to_mem_address = pc;
-					if (opcode == LW || opcode == SW || opcode == OUI)
+					if (mem_to_core_data[15:12] == LW || mem_to_core_data[15:12] == SW || mem_to_core_data[15:12] == OUI)
 						begin
 							reg_index1 = mem_to_core_data[11:8]; // read reg 1
 							reg_index2 = mem_to_core_data[7:4];  // read reg 2     
@@ -202,7 +202,7 @@ module Core(
 					core_to_mem_write_enable = 1;
 				end
 		  BRANCH:
-					next_pc = (cb == flag[flag_idx]) ? pc + {{2{immediate[7]}}, {immediate[7:0]}} : next_pc;
+					next_pc = (cb == flag[flag_idx]) ? pc + {{2{immediate[7]}}, {immediate[7:0]}} : pc;
 		  JUMP:   
 				begin 
 					// if conditional jump
