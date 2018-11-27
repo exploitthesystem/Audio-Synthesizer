@@ -216,7 +216,7 @@ module Core(
 						begin
 							write_index  = 5;         // Return register index     
 							write_enable = 1'b1;                   
-							write_data   = pc + 1'b1; // Return = PC + 1
+							write_data   = pc; // Return = PC + 1
 						end
 				end  
 		  default: begin
