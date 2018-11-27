@@ -51,7 +51,7 @@ module Core(
 
   // Registers for core state that persists between instructions      
   reg [2:0] core_state = FETCH;                                            
-  reg [2:0] next_state = DECODE;
+  reg [2:0] next_state = FETCH;
   reg [9:0] pc         = 0;    // Start instructions at 0  
   reg [9:0] next_pc    = 0;
 	                                      
@@ -64,7 +64,6 @@ module Core(
   	                                                            
   // Registers for core states that persists between cycles w/in instruction
   reg [3:0]  opcode;
-  reg [3:0]  offset;
   reg [3:0]  dest_index;  
   reg [3:0]  shift;
   reg [7:0]  immediate;
@@ -135,8 +134,9 @@ module Core(
 					core_to_mem_address = pc;    
 				end
 		  DECODE:
-				begin        
-					if (mem_to_core_data[15:12] == LW || mem_to_core_data[15:12] == SW || mem_to_core_data[15:12] == OUI)
+				begin   
+					core_to_mem_address = pc;
+					if (opcode == LW || opcode == SW || opcode == OUI)
 						begin
 							reg_index1 = mem_to_core_data[11:8]; // read reg 1
 							reg_index2 = mem_to_core_data[7:4];  // read reg 2     
@@ -228,33 +228,34 @@ module Core(
   // Next state logic
   always@(*)
   begin	
-	/*if(rst == 1'b1) begin
-	//	next_state = EXECUTE;
-	end
-	else begin */
+	if (rst == 1'b1) 
+		begin
+			next_state = FETCH;
+		end
+	else begin 
 		case (core_state)
 			FETCH: next_state = DECODE;    
 			DECODE: 
 				begin
-					if (opcode == LI  ||
-						opcode == OUI ||
-						opcode == AND ||
-						opcode == OR  ||
-						opcode == SLL ||
-						opcode == SLR ||
-						opcode == ADD ||
-						opcode == SUB ||    
-						opcode == LT  ||
-						opcode == EQ  ||
-						opcode == NOT)
+					if (mem_to_core_data[15:12] == LI  ||
+						mem_to_core_data[15:12] == OUI ||
+						mem_to_core_data[15:12] == AND ||
+						mem_to_core_data[15:12] == OR  ||
+						mem_to_core_data[15:12] == SLL ||
+						mem_to_core_data[15:12] == SLR ||
+						mem_to_core_data[15:12] == ADD ||
+						mem_to_core_data[15:12] == SUB ||    
+						mem_to_core_data[15:12] == LT  ||
+						mem_to_core_data[15:12] == EQ  ||
+						mem_to_core_data[15:12] == NOT)
 							next_state = EXECUTE;
-					else if (opcode == LW)
+					else if (mem_to_core_data[15:12] == LW)
 						next_state = LOAD;
-					else if (opcode == SW)
+					else if (mem_to_core_data[15:12] == SW)
 						next_state = STORE;
-					else if (opcode == BR)
+					else if (mem_to_core_data[15:12] == BR)
 						next_state = BRANCH;
-					else if (opcode == JMP)
+					else if (mem_to_core_data[15:12] == JMP)
 						next_state = JUMP;
 					else
 						next_state = FETCH;
@@ -266,6 +267,7 @@ module Core(
 			JUMP:    next_state = FETCH;     
 			default: next_state = FETCH;
 		 endcase
+		end
   end
 	        
   // Next state assignment
@@ -285,7 +287,7 @@ module Core(
 					cond       	<= mem_to_core_data[11];  
 					shift      	<= mem_to_core_data[3:0];	
 					immediate  	<= mem_to_core_data[7:0];  				
-					opcode 		<= mem_to_core_data[15:12];  
+					opcode 		= mem_to_core_data[15:12];  
 					dest_index 	<= (opcode == LW) ? mem_to_core_data[3:0] : mem_to_core_data[11:8];  				
 					flag_idx 	<= (opcode == JMP) ? mem_to_core_data[7] : mem_to_core_data[8];
 					cb 			<= (opcode == JMP) ? mem_to_core_data[10] : mem_to_core_data[11];			
@@ -305,7 +307,7 @@ module Core(
 
 			if (core_state == JUMP || core_state == BRANCH)
 				pc <= next_pc;
-			else if (core_state == FETCH)
+			else if (core_state == DECODE)
 				pc <= pc + 1'b1;
 			core_state <= next_state;  
 		end                       
