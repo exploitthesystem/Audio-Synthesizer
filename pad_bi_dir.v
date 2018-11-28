@@ -21,19 +21,19 @@
 module pad_bi_dir(
 	input going_out, // signal going out of chip - yes this is an input to this module
 	output pad,
-	input en,
-	output coming_in);  // signal going into chip to be read by i2c module
+	output coming_in);  // signal coming into chip to be read by i2c module
 
-wire out_pre, out_pre1, out_pre2, out_buf;
+wire out_pre, out_pre1, out_pre2, out_buf, sda_en;
+
+assign sda_en = sda_out_pad == 1'd0;
 
 INVX1 inv0 (.A(going_out), .Z(out_pre));
 INVX4 inv1 (.A(out_pre), .Z(out_pre1));
 INVX16 inv2 (.A(out_pre1), .Z(out_pre2));
 INVX32 inv3 (.A(out_pre2), .Z(out_buf));
-pad_bidirhe pad_bidirhe0(.EN(en), .DataOut(out_buf), .DataIn(coming_in), .pad(pad));
+pad_bidirhe pad_bidirhe0(.EN(sda_en), .DataOut(out_buf), .DataIn(coming_in), .pad(pad));
 
 endmodule 
-
 
 
 
