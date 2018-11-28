@@ -25,7 +25,7 @@ module pad_bi_dir(
 
 wire out_pre, out_pre1, out_pre2, out_buf, sda_en;
 
-assign sda_en = sda_out_pad == 1'd0;
+assign sda_en = going_out == 1'd0;
 
 INVX1 inv0 (.A(going_out), .Z(out_pre));
 INVX4 inv1 (.A(out_pre), .Z(out_pre1));
@@ -34,6 +34,5 @@ INVX32 inv3 (.A(out_pre2), .Z(out_buf));
 pad_bidirhe pad_bidirhe0(.EN(sda_en), .DataOut(out_buf), .DataIn(coming_in), .pad(pad));
 
 endmodule 
-
 
 
