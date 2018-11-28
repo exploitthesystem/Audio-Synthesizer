@@ -1,12 +1,14 @@
 module synth_top(
  input 		  	reset_io,
  input		  	clk_io,	 
- input [15:0] 	data_in_io,
- output [15:0] 	data_out_io, 
- output [9:0]  	addr_out_io,
- output 			core_to_mem_enable_io,
- inout		  	sda_io,
- inout		  	scl_io,
+ input 	[15:0] 		data_in_io,
+ output [15:0] 		data_out_io, 
+ output [9:0]  		addr_out_io,
+ output 		core_to_mem_enable_io,
+ input		  	sda_read_io,
+ input		  	scl_read_io,
+ output			sda_out_io,
+ output			scl_out_io,
  output 		pwm0_io,
  output 		pwm1_io,
  output 		pwm2_io,
@@ -124,12 +126,14 @@ pwm p7	  (
 I2C i2c_1(  
 			.clock				(clk_io),
 			.reset				(reset_io),
-			.device_address		(i2c_addr_wire),
-			.reg_address		(i2c_to_core_reg_addr_wire),
+			.device_address			(i2c_addr_wire),
+			.reg_address			(i2c_to_core_reg_addr_wire),
 			.data_in			(core_to_i2c_data_wire),
 	
-			.serial_data_line	(sda_io),
-			.serial_clock_line	(scl_io),
+			.sda_read			(sda_read_io),
+			.scl_read			(scl_read_io),
+			.sda_out			(sda_out_io),
+ 			.scl_out			(scl_out_io),
 	
 			.data_out			(i2c_to_core_data_wire),
 			.i2c_status			(i2c_sts_wire),
@@ -138,4 +142,3 @@ I2C i2c_1(
 
 
 endmodule
-
