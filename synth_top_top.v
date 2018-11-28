@@ -69,16 +69,16 @@ module synth_top_top (
  	output 		 	data_out_io_pad15, 
  	output 		 	data_out_io_pad16, 
 
- 	input		  	addr_out_io_pad0,
- 	input		  	addr_out_io_pad1,
- 	input		  	addr_out_io_pad2,
- 	input		  	addr_out_io_pad3,
- 	input		  	addr_out_io_pad4,
- 	input		  	addr_out_io_pad5,
- 	input		  	addr_out_io_pad6,
- 	input		  	addr_out_io_pad7,
- 	input		  	addr_out_io_pad8,
- 	input		  	addr_out_io_pad9,
+ 	output		  	addr_out_io_pad0,
+ 	output		  	addr_out_io_pad1,
+ 	output		  	addr_out_io_pad2,
+ 	output		  	addr_out_io_pad3,
+ 	output		  	addr_out_io_pad4,
+ 	output		  	addr_out_io_pad5,
+ 	output		  	addr_out_io_pad6,
+ 	output		  	addr_out_io_pad7,
+ 	output		  	addr_out_io_pad8,
+ 	output		  	addr_out_io_pad9,
 
  	input 			core_to_mem_enable_io_pad,
  	inout		  	sda_io_pad,
@@ -116,6 +116,8 @@ wire pwm5_io_w;
 wire pwm6_io_w;
 wire pwm7_io_w;
 
+pad_bi_dir sda_bi();
+pad_bi_dir scl_bi();
 
 pad_in pad_in0 (.pad(	vdd_pad					),			 	.DataIn(vdd_w));
 pad_in pad_in0 (.pad(	vss_pad					),			 	.DataIn(vss_w));
@@ -140,16 +142,6 @@ pad_in pad_in0 (.pad(	data_in_io_pad13		),			 	.DataIn(data_in_io_w[13]));
 pad_in pad_in0 (.pad(	data_in_io_pad14		),			 	.DataIn(data_in_io_w[14]));
 pad_in pad_in0 (.pad(	data_in_io_pad15		),			 	.DataIn(data_in_io_w[15]));
 
-pad_in pad_in0 (.pad(	addr_out_io_pad0		),			 	.DataIn(addr_out_io_w[0]));
-pad_in pad_in0 (.pad(	addr_out_io_pad1		),			 	.DataIn(addr_out_io_w[1]));
-pad_in pad_in0 (.pad(	addr_out_io_pad2		),			 	.DataIn(addr_out_io_w[2]));
-pad_in pad_in0 (.pad(	addr_out_io_pad3		),			 	.DataIn(addr_out_io_w[3]));
-pad_in pad_in0 (.pad(	addr_out_io_pad4		),			 	.DataIn(addr_out_io_w[4]));
-pad_in pad_in0 (.pad(	addr_out_io_pad5		),			 	.DataIn(addr_out_io_w[5]));
-pad_in pad_in0 (.pad(	addr_out_io_pad6		),			 	.DataIn(addr_out_io_w[6]));
-pad_in pad_in0 (.pad(	addr_out_io_pad7		),			 	.DataIn(addr_out_io_w[7]));
-pad_in pad_in0 (.pad(	addr_out_io_pad8		),			 	.DataIn(addr_out_io_w[8]));
-pad_in pad_in0 (.pad(	addr_out_io_pad9		),			 	.DataIn(addr_out_io_w[9]));
 
 pad_in pad_in0 (.pad(	core_to_mem_enable_io_pad),    			.DataIn(C_pad));
 
@@ -173,6 +165,17 @@ pad_out_buffered pad_out0(.pad(		data_out_io_pad12	), .out(data_out_io_w[12]));
 pad_out_buffered pad_out0(.pad(		data_out_io_pad13	), .out(data_out_io_w[13]));
 pad_out_buffered pad_out0(.pad(		data_out_io_pad14	), .out(data_out_io_w[14]));
 pad_out_buffered pad_out0(.pad(		data_out_io_pad15	), .out(data_out_io_w[15]));
+
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad0		),			 	.DataIn(addr_out_io_w[0]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad1		),			 	.DataIn(addr_out_io_w[1]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad2		),			 	.DataIn(addr_out_io_w[2]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad3		),			 	.DataIn(addr_out_io_w[3]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad4		),			 	.DataIn(addr_out_io_w[4]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad5		),			 	.DataIn(addr_out_io_w[5]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad6		),			 	.DataIn(addr_out_io_w[6]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad7		),			 	.DataIn(addr_out_io_w[7]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad8		),			 	.DataIn(addr_out_io_w[8]));
+pad_out_buffered pad_out0 (.pad(	addr_out_io_pad9		),			 	.DataIn(addr_out_io_w[9]));
 
 
 pad_out_buffered pad_out0(.pad(		pwm0_io_pad		), .out(pwm0_io_w));
