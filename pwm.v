@@ -23,7 +23,7 @@ module pwm(	input clk,
 				input [15:0] pwm_reg,
 				output reg pwm_out
 				);
-				
+	wire next_pwm_out;		
 	wire [7:0] count;
 	counter U1(.clk(clk), .reset(reset), .count_to(pwm_reg[15:8]), .count(count));
 	assign next_pwm_out = (pwm_reg[7:0] >= count);
