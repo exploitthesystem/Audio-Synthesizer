@@ -50,17 +50,17 @@ module Core(
   parameter JUMP    = 3'b110;
 
   // Registers for core state that persists between instructions      
-  reg [2:0] core_state = FETCH;                                            
-  reg [2:0] next_state = FETCH;
-  reg [9:0] pc         = 0;    // Start instructions at 0  
-  reg [9:0] next_pc    = 0;
+  reg [2:0] core_state;                                            
+  reg [2:0] next_state;
+  reg [9:0] pc;    // Start instructions at 0  
+  reg [9:0] next_pc;
 	                                      
   // Registers for branches and jumps        
   reg       cond;
-  reg       cb			  = 0;  
+  reg       cb;  
   reg       jal;
   reg 		flag_idx;
-  reg [1:0] flag = 0;    
+  reg [1:0] flag;    
   	                                                            
   // Registers for core states that persists between cycles w/in instruction
   reg [3:0]  opcode;
