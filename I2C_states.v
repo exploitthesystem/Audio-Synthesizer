@@ -38,7 +38,7 @@ module I2C_state_controller(
 	parameter send_byte		= 3'd5;
 	parameter receive_byte	= 3'd6;
 
-	reg [3:0] state_list = 4'd0;
+	reg [3:0] state_list;
 	
 	always@ (reset, state_list, dev_address_s[8], reg_address_s, data_s)
 	begin
