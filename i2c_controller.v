@@ -43,17 +43,17 @@ module I2C(
 	parameter receive_byte	= 3'd6;
 
 
-	reg [2:0] 	state = get_state;
-	reg [2:0] 	next_state = get_state;
-	reg [9:0] 	counter = 0;
-	reg [5:0] 	sample_counter = 0;
-	reg		ended = 0;
+	reg [2:0] 	state;
+	reg [2:0] 	next_state;
+	reg [9:0] 	counter;
+	reg [5:0] 	sample_counter;
+	reg		ended;
 	
 	
 	wire [2:0] 	next_state_s;
 	wire [7:0] 	send_byte_data;
 	
-	reg request_next_state = 0;
+	reg request_next_state;
 	reg ack_failed;
 	
 
