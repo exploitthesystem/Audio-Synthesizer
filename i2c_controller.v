@@ -87,11 +87,6 @@ module I2C(
 			endcase
 	end
 
-	always@ (posedge clock)
-	begin	
-			state <= next_state;
-	end
-
 	
 	always@ (posedge clock)
 	begin
