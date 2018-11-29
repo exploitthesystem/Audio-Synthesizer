@@ -6261,7 +6261,7 @@ module synth_top_top(reset_io, clk_io, data_in_io, data_out_io, addr_out_io,
   output [15:0] data_out_io;
   output [9:0] addr_out_io;
   inout sda_io, scl_io;
-  input reset_io, clk_io, sda_read_io, scl_read_io;
+  input reset_io, clk_io;
   output core_to_mem_enable_io, pwm0_io, pwm1_io, pwm2_io, 
 						pwm3_io, pwm4_io, pwm5_io, pwm6_io, pwm7_io;
 
@@ -6280,8 +6280,8 @@ wire reset_pad, clk_pad, core_to_mem_enable_pad,
   pad_corner corner2 ();
   pad_corner corner3 ();
   
-  pad_bidirhe_buffered pad_sda(.out(sda_out), pad(sda_io), in(sda_read));
-  pad_bidirhe_buffered pad_scl(.out(scl_out), pad(scl_io), in(scl_read));
+	pad_bidirhe_buffered pad_sda(.out(sda_out), .pad(sda_io), .in(sda_read));
+	pad_bidirhe_buffered pad_scl(.out(scl_out), .pad(scl_io), .in(scl_read));
 
 	pad_in pad_clk   (.pad(clk_io),    .DataIn(clk_pad));
 	pad_in pad_reset (.pad(reset_io),  .DataIn(reset_pad));
