@@ -13,9 +13,9 @@ module pad_out_buffered (out, pad);
 	wire out_pre, out_pre1, out_pre2, out_buf;
 
 	INVX1 inv0 (.A(out), .Z(out_pre));
-	INVX4 inv0 (.A(out_pre), .Z(out_pre1));
-	INVX16 inv0 (.A(out_pre1), .Z(out_pre2));
-	INVX32 inv0 (.A(out_pre2), .Z(out_buf));
+	INVX4 inv1 (.A(out_pre), .Z(out_pre1));
+	INVX16 inv2 (.A(out_pre1), .Z(out_pre2));
+	INVX32 inv3 (.A(out_pre2), .Z(out_buf));
 
 	pad_out pad_out0(.pad(pad), .DataOut(out_buf));
 endmodule
@@ -28,9 +28,9 @@ module pad_bidirhe_buffered (out, pad, in);
 	wire out_pre, out_pre1, out_pre2, out_buf;
 
 	INVX1 inv0 (.A(out), .Z(out_pre));
-	INVX4 inv0 (.A(out_pre), .Z(out_pre1));
-	INVX16 inv0 (.A(out_pre1), .Z(out_pre2));
-	INVX32 inv0 (.A(out_pre2), .Z(out_buf));
+	INVX4 inv1 (.A(out_pre), .Z(out_pre1));
+	INVX16 inv2 (.A(out_pre1), .Z(out_pre2));
+	INVX32 inv3 (.A(out_pre2), .Z(out_buf));
 
 	pad_bidirhe pad_bidirhe0(.pad(pad), .DataOut(out_buf), .EN(out_pre), .DataIn(in));
 endmodule
