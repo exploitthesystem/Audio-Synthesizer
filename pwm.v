@@ -28,7 +28,7 @@ module pwm(	input clk,
 	counter U1(.clk(clk), .reset(reset), .count_to(pwm_reg[15:8]), .count(count));
 	assign next_pwm_out = (pwm_reg[7:0] >= count);
 
-	always @(posedge clk or reset)
+	always @(posedge clk)
 	begin
 		if(reset) begin
 			pwm_out <= 0;
