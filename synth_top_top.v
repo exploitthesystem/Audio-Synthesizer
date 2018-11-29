@@ -4,14 +4,8 @@
 // Date      : Tue Nov 20 18:07:23 2018
 /////////////////////////////////////////////////////////////
 
-/* new */
 
 module synth_top_top ( 
-	/*		Vdd, Vss, Reset	*/
-	input 		  	vdd_pad,
-	input 			vss_pad,
-	input 			gnd_pad,
-	/*		synth_top.v signals */	
 	input 		  	reset_io_pad,
  	input		  	clk_io_pad,	 
  	input  			data_in_io_pad0,
@@ -120,10 +114,6 @@ pad_bi_dir scl_bi(
 				.pad(scl_io_pad),
 				.coming_in(scl_read)
 	);
-
-
-/* ARE THESE INPUTS????*/
-pad_in pad_in0 (.pad(	vdd_pad					),			 	.DataIn(vdd_w));
 
 pad_in pad_in1 (.pad(	reset_io_pad			),			 	.DataIn(reset_io_w));
 pad_in pad_in2 (.pad(	clk_io_pad				),			 	.DataIn(clk_io_w));
