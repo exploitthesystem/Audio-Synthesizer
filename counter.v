@@ -29,7 +29,7 @@ module counter(input clk,
 	// if count_to is zero, pretend it's max at 0xFF and increment it
 	assign next_count = (count_to == 8'd0) ? count + 1'b1 :(count < count_to) ? count + 1'b1 : 1'b0;
 	
-	always @(posedge clk or reset)
+	always @(posedge clk)
 	begin
 		if(reset) begin
 			count <= 0;
