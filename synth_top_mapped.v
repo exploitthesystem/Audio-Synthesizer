@@ -6283,8 +6283,8 @@ wire reset_pad, clk_pad, core_to_mem_enable_pad,
   pad_bidirhe_buffered pad_sda(.out(sda_out), pad(sda_io), in(sda_read));
   pad_bidirhe_buffered pad_scl(.out(scl_out), pad(scl_io), in(scl_read));
 
-  pad_in pad_clk   (.pad(clk_io),    .DataIn(clk_pad);
-  pad_in pad_reset (.pad(reset_io),  .DataIn(reset_pad);
+	pad_in pad_clk   (.pad(clk_io),    .DataIn(clk_pad));
+	pad_in pad_reset (.pad(reset_io),  .DataIn(reset_pad));
 
   pad_in pad_data_in0  (.pad(data_in_io[0]),  .DataIn(data_in_pad[0]));
   pad_in pad_data_in1  (.pad(data_in_io[1]),  .DataIn(data_in_pad[1]));
