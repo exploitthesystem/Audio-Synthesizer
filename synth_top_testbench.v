@@ -25,29 +25,31 @@
 module synth_top_testbench;
 
 	// Inputs
-	reg reset_io;
-	reg clk_io;
-	reg [15:0] data_in_io;
+	reg reset_io_p;
+	reg clk_io_p;
+	reg [15:0] data_in_io_p;
 
 	// Outputs
-	wire core_to_mem_enable_io;
-	wire [9:0] addr_out_io;
-	wire [15:0] data_out_io;
-	wire pwm0_io;
-	wire pwm1_io;
-	wire pwm2_io;
-	wire pwm3_io;
-	wire pwm4_io;
-	wire pwm5_io;
-	wire pwm6_io;
-	wire pwm7_io;
+	wire core_to_mem_enable_io_p;
+	wire [9:0] addr_out_io_p;
+	wire [15:0] data_out_io_p;
+	wire pwm0_io_p;
+	wire pwm1_io_p;
+	wire pwm2_io_p;
+	wire pwm3_io_p;
+	wire pwm4_io_p;
+	wire pwm5_io_p;
+	wire pwm6_io_p;
+	wire pwm7_io_p;
 	
 	reg [15:0] mem [0:1023];
 
 	// Bidirs
-	wire sda_io;
-	wire scl_io;
+	wire sda_io_p;
+	wire scl_io_p;
 
+
+/*
 	// Instantiate the Unit Under Test (UUT)
 	synth_top uut (
 		.reset_io(reset_io), 
@@ -68,11 +70,34 @@ module synth_top_testbench;
 		.pwm7_io(pwm7_io)
 	);
 
+*/
+
+synth_top_top uut(
+	.reset_io(reset_io), 
+	.clk_io(clk_io_p), 
+	.data_in_io(data_in_io_p), 
+	.data_out_io(data_out_io_p), 
+	.addr_out_io(addr_out_io_p), 
+	.core_to_mem_enable_io(core_to_mem_enable_io_p), 
+	.sda_io(sda_io_p), 
+	.scl_io(scl_io_p), 
+	.pwm0_io(pwm0_io_p), 
+	.pwm1_io(pwm1_io_p), 
+	.pwm2_io(pwm2_io_p), 
+	.pwm3_io(pwm3_io_p), 
+	.pwm4_io(pwm4_io_p), 
+	.pwm5_io(pwm5_io_p), 
+	.pwm6_io(pwm6_io_p), 
+	.pwm7_io(pwm7_io_p)
+);
+
+
+
 	initial begin
 		// Initialize Inputs
-		reset_io = 0;
-		clk_io = 0;
-		data_in_io = 0;
+		reset_io_p = 0;
+		clk_io_p = 0;
+		data_in_io_p = 0;
 
 		// make memory
 		//* program to test PWM
@@ -114,26 +139,26 @@ module synth_top_testbench;
         
 		// Add stimulus here
 		#11;
-		reset_io = 1;
-		#502 reset_io = 0;
+		reset_io_p = 1;
+		#502 reset_io_p = 0;
 
 	end
 
 	// read from memory
 	always @(*)
 	begin
-		data_in_io = mem[addr_out_io];
+		data_in_io_p = mem[addr_out_io_p];
 	end
 	
 	//write to memory
-	always @(posedge clk_io)
+	always @(posedge clk_io_p)
 	begin
-		if(core_to_mem_enable_io) begin
-			mem[addr_out_io] = data_out_io;
+		if(core_to_mem_enable_io_p) begin
+			mem[addr_out_io_p] = data_out_io_p;
 		end
 	end
 
 	// run 10 MHz clock
-	always begin #50 assign clk_io = ~clk_io; end 
+	always begin #50 assign clk_io_p = ~clk_io_p; end 
 endmodule
 

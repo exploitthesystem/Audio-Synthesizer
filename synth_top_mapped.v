@@ -6280,11 +6280,11 @@ wire reset_pad, clk_pad, core_to_mem_enable_pad,
   pad_corner corner2 ();
   pad_corner corner3 ();
   
-	pad_bidirhe_buffered pad_sda(.out(sda_out), .pad(sda_io), .in(sda_read));
-	pad_bidirhe_buffered pad_scl(.out(scl_out), .pad(scl_io), .in(scl_read));
+  pad_bidirhe_buffered pad_sda(.out(sda_out), .pad(sda_io), .in(sda_read));
+  pad_bidirhe_buffered pad_scl(.out(scl_out), .pad(scl_io), .in(scl_read));
 
-	pad_in pad_clk   (.pad(clk_io),    .DataIn(clk_pad));
-	pad_in pad_reset (.pad(reset_io),  .DataIn(reset_pad));
+  pad_in pad_clk   (.pad(clk_io),    .DataIn(clk_pad));
+  pad_in pad_reset (.pad(reset_io),  .DataIn(reset_pad));
 
   pad_in pad_data_in0  (.pad(data_in_io[0]),  .DataIn(data_in_pad[0]));
   pad_in pad_data_in1  (.pad(data_in_io[1]),  .DataIn(data_in_pad[1]));
@@ -6359,7 +6359,7 @@ wire reset_pad, clk_pad, core_to_mem_enable_pad,
 							.pwm4_io				(pwm4_pad),
 							.pwm5_io				(pwm5_pad),
 							.pwm6_io				(pwm6_pad),
-							.pwm7_io				(pw7_pad));
+							.pwm7_io				(pwm7_pad));
 endmodule
 
 module synth_top ( reset_io, clk_io, data_in_io, data_out_io, addr_out_io, 
